@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tienda en Línea - Productos</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    header {
+      width: 100%;
+      padding: 10px;
+      background-color: #333;
+      color: white;
+      text-align: center;
+    }
+
+    main {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      margin-top: 20px;
+    }
+
+    #carousel {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .carousel-item {
+      display: none;
+      width: 300px;
+      height: 200px;
+      background-color: lightgray;
+      text-align: center;
+      line-height: 200px;
+    }
+
+    #products {
+      width: 60%;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+    }
+
+    .product {
+      width: 30%;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Bienvenido a El Vecindario</h1>
+  </header>
+
+  <main>
+    <div id="carousel" aria-live="polite">
+      <button id="prev" aria-label="Anterior">Anterior</button>
+      <div class="carousel-item"><img src="imagen1.2.png" alt="Imagen 1"></div>
+      <div class="carousel-item"><img src="imagen2.2.png" alt="Imagen 2"></div>
+      <div class="carousel-item"><img src="imagen3.2.png" alt="Imagen 3"></div>
+      <div class="carousel-item"><img src="imagen4.2.png" alt="Imagen 4"></div>
+      <div class="carousel-item"><img src="imagen5.2.png" alt="Imagen 5"></div>
+      <div class="carousel-item"><img src="imagen6.2.png" alt="Imagen 6"></div>
+      <div class="carousel-item"><img src="imagen13.png" alt="Imagen 13"></div>
+      <div class="carousel-item"><img src="imagen8.2.png" alt="Imagen 8"></div>
+      <div class="carousel-item"><img src="imagen9.2.png" alt="Imagen 9"></div>
+      <div class="carousel-item"><img src="imagen10.2.png" alt="Imagen 10"></div>
+      <button id="next" aria-label="Siguiente">Siguiente</button>
+    </div>
+
+    <section id="products">
+      <h2>Productos</h2>
+      <div class="product">
+        <p>Producto 1 - $10</p>
+        <button class="add-to-cart" data-price="10">Añadir al Carrito</button>
+      </div>
+      <div class="product">
+        <p>Producto 2 - $15</p>
+        <button class="add-to-cart" data-price="15">Añadir al Carrito</button>
+      </div>
+      <div class="product">
+        <p>Producto 3 - $20</p>
+        <button class="add-to-cart" data-price="20">Añadir al Carrito</button>
+      </div>
+      <div class="product">
+        <p>Producto 4 - $10</p>
+        <button class="add-to-cart" data-price="10">Añadir al Carrito</button>
+      </div>
+      <div class="product">
+        <p>Producto 5 - $15</p>
+        <button class="add-to-cart" data-price="15">Añadir al Carrito</button>
+      </div>
+      <div class="product">
+        <p>Producto 6 - $20</p>
+        <button class="add-to-cart" data-price="20">Añadir al Carrito</button>
+      </div>
+      <div class="product">
+        <p>Producto 7 - $10</p>
+        <button class="add-to-cart" data-price="10">Añadir al Carrito</button>
+      </div>
+      <div class="product">
+        <p>Producto 8 - $15</p>
+        <button class="add-to-cart" data-price="15">Añadir al Carrito</button>
+      </div>
+      <div class="product">
+        <p>Producto 9 - $20</p>
+        <button class="add-to-cart" data-price="20">Añadir al Carrito</button>
+      </div>
+      <div class="product">
+        <p>Producto 10 - $10</p>
+        <button class="add-to-cart" data-price="10">Añadir al Carrito</button>
+      </div>
+    </section>
+
+    <button id="viewCart">Ver Carrito</button>
+  </main>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const items = document.querySelectorAll('.carousel-item');
+      let currentItem = 0;
+
+      function showItem(index) {
+        items.forEach((item, i) => {
+          item.style.display = i === index ? 'block' : 'none';
+        });
+      }
+
+      document.getElementById('next').addEventListener('click', () => {
+        currentItem = (currentItem + 1) % items.length;
+        showItem(currentItem);
+      });
+
+      document.getElementById('prev').addEventListener('click', () => {
+        currentItem = (currentItem - 1 + items.length) % items.length;
+        showItem(currentItem);
+      });
+
+      showItem(currentItem);
+    });
+
+    // Funcionalidad del carrito
+    document.addEventListener("DOMContentLoaded", function() {
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+      document.getElementById('products').addEventListener('click', function(event) {
+        if (event.target.classList.contains('add-to-cart')) {
+          const price = parseInt(event.target.dataset.price, 10);
+          addToCart(price);
+        }
+      });
+
+      function addToCart(price) {
+        cart.push(price);
+        localStorage.setItem('cart', JSON.stringify(cart));
+      }
+
+      document.getElementById('viewCart').addEventListener('click', () => {
+        window.location.href = 'cart.html';
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tienda en Línea - Carrito</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    header {
+      width: 100%;
+      padding: 10px;
+      background-color: #333;
+      color: white;
+      text-align: center;
+    }
+
+    main {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      margin-top: 20px;
+    }
+
+    #cart {
+      width: 60%;
+      margin-top: 20px;
+    }
+
+    #cartItems {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    #cartItems li {
+      padding: 5px;
+      border-bottom: 1px solid #ddd;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Carrito de Compras</h1>
+  </header>
+
+  <main>
+    <section id="cart">
+      <h2>Carrito de Compras</h2>
+      <ul id="cartItems"></ul>
+      <p>Total: $<span id="totalPrice">0</span></p>
+      <button id="checkout">Pagar</button>
+      <p id="error-message" style="color: red; display: none;">Debe seleccionar al menos 10 productos para proceder al pago.</p>
+      <button id="backToShop">Volver a la tienda</button>
+    </section>
+  </main>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const cartItemsContainer = document.getElementById('cartItems');
+      const totalPriceElement = document.getElementById('totalPrice');
+      const errorMessage = document.getElementById('error-message');
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+      function updateCart() {
+        cartItemsContainer.innerHTML = '';
+        let total = 0;
+        cart.forEach((price, index) => {
+          total += price;
+          const itemLi = document.createElement('li');
+          itemLi.innerText = `Producto ${index + 1} - $${price}`;
+          cartItemsContainer.appendChild(itemLi);
+        });
+        totalPriceElement.innerText = total;
+      }
+
+      document.getElementById('checkout').addEventListener('click', () => {
+        if (cart.length < 10) {
+          errorMessage.style.display = 'block';
+        } else {
+          alert(`Total a pagar: $${totalPriceElement.innerText}`);
+          localStorage.removeItem('cart');
+          cart = [];
+          updateCart();
+          errorMessage.style.display = 'none';
+        }
+      });
+
+      document.getElementById('backToShop').addEventListener('click', () => {
+        window.location.href = 'shop.html';
+      });
+
+      updateCart();
+    });
+  </script>
+</body>
+</html>

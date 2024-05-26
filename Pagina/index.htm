@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pantalla de Inicio</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f0f0f0;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <img src="imageninicio.png" alt="Logo de la Tienda" width="200">
+  <h1>Bienvenido a la tiendita 
+  El Vecidario</h1>
+  <button id="startButton">Iniciar Tienda</button>
+
+  <script>
+    // Script 1: Manejo del evento de clic en el botón para iniciar la tienda
+    document.getElementById('startButton').addEventListener('click', function() {
+      window.location.href = 'shop.html';
+    });
+  </script>
+
+  <script>
+    // Script 2: Mensaje de bienvenida en la consola
+    console.log("Bienvenido a la pantalla de inicio del programa de la tienda.");
+  </script>
+</body>
+</html>
